@@ -15,21 +15,40 @@ class Usage
   def context method
     yield
   end
-end
 
-describe RspecExplain do
+  def specify method
+    yield
+  end
+
+  def subject  # dont forget to set subject in your specs! #
+    self                                                   #
+  end                                                      #
+end                                                        #
+                                                           #
+describe RspecExplain do                                   #
+  subject { Usage.new }           # like this!          <= #
 
   context '.explain' do
-    let(:test) { Usage.new }
 
     it 'creates context block for given method' do
-      test.should_receive(:context).with('#square').exactly(1).times
-      test.usage_1
+      subject.should_receive(:context).with('#square').once
+      subject.usage_1
     end
 
     it 'specifies each example inside context block' do
-      test.should_receive(:specify).exactly(4).times
-      test.usage_1
+      subject.should_receive(:specify).exactly(4).times
+      subject.usage_1
+    end
+
+    it 'invokes subject inside specify block' do
+      subject.should_receive(:subject).exactly(4).times { double(square: nil) }
+      subject.usage_1
+    end    
+
+    it 'invokes :method on subject' do
+      subject.should_receive(:square).exactly(4).times
+      #subject.should_receive(:subject).exactly(4).times { subject }
+      subject.usage_1
     end
   end
 end
