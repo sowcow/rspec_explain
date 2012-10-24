@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class Usage
-  include RspecExplain
+  include RSpecExplain
 
 
 #####################
@@ -142,7 +142,7 @@ describe RspecExplain do                                   #
     end
 
     context 'the most obvious usage example:' do
-      extend RspecExplain
+      extend RSpecExplain
 
       describe 'Usage' do
         subject { Usage.new }         

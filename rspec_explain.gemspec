@@ -5,7 +5,7 @@ require 'rspec_explain/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "rspec_explain"
-  gem.version       = RspecExplain::VERSION
+  gem.version       = RSpecExplain::VERSION
   gem.authors       = ["Alexander K"]
   gem.email         = ["xpyro@ya.ru"]
   

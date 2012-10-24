@@ -1,4 +1,4 @@
-module RspecExplain
+module RSpecExplain
   def explain method, examples, run='subject.%s(%s)'
 
     examples = prepare examples
