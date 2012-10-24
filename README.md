@@ -37,7 +37,6 @@ Or install it yourself as:
     end
 
 ### output:
-{\color[HTML]{888888} net}
 
     Usage
       #square
