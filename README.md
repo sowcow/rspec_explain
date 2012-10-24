@@ -45,7 +45,10 @@ Or install it yourself as:
         2 => 4
         10 => 100
         ...
+        
+## Alternatives
 
+* https://github.com/oggy/rspec_outlines
 
 ## Contributing
 
