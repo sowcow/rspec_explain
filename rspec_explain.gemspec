@@ -11,7 +11,8 @@ Gem::Specification.new do |gem|
   
   gem.description   = <<-DESC
     I'd like to write simple methods with simple specs
-    so this gem gonna be easy to use with some syntactic sugar
+    so this gem gonna be easy to use
+    with syntactic sugar to simplify the addition of examples
     but not so much configurable to shape a way you write methods
   DESC
 
