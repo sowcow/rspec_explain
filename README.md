@@ -1,6 +1,6 @@
-# RspecExplain
+# RSpecExplain
 
-TODO: Write a gem description
+The idea was to write something like scenario outlines in cucumber but without semicolons or vertical bars or other syntax trash.
 
 ## Installation
 
@@ -18,7 +18,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    describe 'Usage' do
+      subject { Usage.new }
+             
+      explain :square, %w[
+        2   4
+        10  100
+        25  625
+        30  900
+      ].map(&:to_i)
+            
+      explain :no_spaces, <<-EX
+        one string  => one_string
+        a b c       => a_b_c
+        a_b c_d     => a_b_c_d
+      EX 
+            
+    end
+    
+
+    Usage
+      #square
+        2 => 4
+        10 => 100
+        ...
+
 
 ## Contributing
 
