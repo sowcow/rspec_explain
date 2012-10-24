@@ -36,7 +36,7 @@ Or install it yourself as:
             
     end
 
-
+output:
     Usage
       #square
         2 => 4
