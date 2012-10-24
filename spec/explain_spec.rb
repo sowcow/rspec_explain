@@ -144,13 +144,16 @@ describe RspecExplain do                                   #
     context 'the most obvious usage example:' do
       extend RspecExplain
 
-      describe 'User' do
+      describe 'Usage' do
+        subject { Usage.new }         
+
         explain :square, %w[
           2   4
           10  100
           25  625
           30  900
         ].map(&:to_i)
+
       end
     end
   end
