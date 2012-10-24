@@ -37,7 +37,7 @@ Or install it yourself as:
     end
 
 ### output:
-<span style="color:#888888">net</span>
+{\color[HTML]{888888} net}
 
     Usage
       #square
