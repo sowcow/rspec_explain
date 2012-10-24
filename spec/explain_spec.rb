@@ -98,7 +98,7 @@ class Usage
   end                                                      #
 end                                                        #
                                                            #
-describe RspecExplain do                                   #
+describe RSpecExplain do                                   #
   subject { Usage.new }           # like this!          <= #
 
   context '.explain' do

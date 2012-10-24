@@ -35,7 +35,7 @@ Or install it yourself as:
       EX 
             
     end
-    
+
 
     Usage
       #square
