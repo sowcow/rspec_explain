@@ -6,7 +6,7 @@ module RspecExplain
     context "##{method}" do
       examples.each do |input,output|
         specify "#{input} => #{output}" do
-          eval(run % [method, input.inspect]) #subject.send(:method, input)
+          eval(run % [method, input.inspect]).should == output #subject.send(:method, input)
         end
       end
     end
@@ -23,9 +23,13 @@ module RspecExplain
     end
   end
 
+  COMMAND = %r"^`(.*)`$"
   def prepare_one element
+    
+    element = element.strip if element.is_a? String
+
     case element
-    when String then element.strip
+    when COMMAND then eval(element[COMMAND,1])
     else
       element
     end      
