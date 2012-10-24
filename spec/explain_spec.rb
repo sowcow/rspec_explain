@@ -18,9 +18,9 @@ describe RspecExplain do
     let(:test) { Usage.new }
 
     it 'creates context block for given method' do
-      test.should_receive(:context).exactly(1).times
+      test.should_receive(:context).with('#square', anything).exactly(1).times
       test.usage_1
     end
-    
+
   end
 end

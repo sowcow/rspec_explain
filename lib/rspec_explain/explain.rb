@@ -1,5 +1,5 @@
 module RspecExplain
   def explain method, examples
-    context "#{method}"
+    context "##{method}", examples
   end
 end
