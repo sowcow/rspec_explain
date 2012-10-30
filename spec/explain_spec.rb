@@ -76,7 +76,15 @@ class Usage
       3*2 => 2*3
       1*1 => 1**1
     EX
-  end    
+  end   
+
+  def usage_7
+    point = Struct.new(:x,:y)
+    p = ->(x,y){ point.new x, y }
+
+    explain     :equal, [p.(1,1),p.(1,1),  p.(10,10),p.(10,10)]
+    explain_not :equal, [p.(1,1),p.(2,2),  p.(3,3),p.(4,4)]
+  end
 
   def should_be_red
    explain :equal, <<-EX

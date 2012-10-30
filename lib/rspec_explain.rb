@@ -5,18 +5,23 @@ RSpec.configure do |config|
 end
 
 module RSpecExplain
-  def explain method, examples, run='subject.%s(%s)'
+  def explain method, examples, shoulder=:should  ##, run='subject.%s(%s)'
 
     examples = prepare examples
 
     context "##{method}" do
       examples.each do |input,output|
         specify "#{input} => #{output}" do
-          eval(run % [method, input.inspect]).should == output #subject.send(:method, input)
+          ##eval(run % [method, input.inspect]).should == output
+          subject.send(method, input).send(shoulder) == output   #should == output
         end
       end
     end
 
+  end
+
+  def explain_not method, examples
+    explain method, examples, :should_not
   end
 
   private
