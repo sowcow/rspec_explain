@@ -71,7 +71,7 @@ class Usage
   end  
 
   def usage_6
-    explain :equal, <<-EX.split(/$|=>/).map { |x| '`%s`' % x.strip }
+    explain :equal, <<-EX.strip.split(/$|=>/).map { |x| '`%s`' % x.strip }
       2*2 => 2+2
       3*2 => 2*3
       1*1 => 1**1
@@ -79,11 +79,15 @@ class Usage
   end   
 
   def usage_7
-    point = Struct.new(:x,:y)
+    point = Struct.new(:x,:y) do
+      def to_s
+        "(#{x}, #{y})"
+      end
+    end
     p = ->(x,y){ point.new x, y }
 
     explain     :equal, [p.(1,1),p.(1,1),  p.(10,10),p.(10,10)]
-    explain_not :equal, [p.(1,1),p.(2,2),  p.(3,3),p.(4,4)]
+    explain_not :equal, [p.(1,1),p.(2,2),  p.(30,30),p.(40,40)] # stupid idea:)
   end
 
   def should_be_red
@@ -108,6 +112,10 @@ end                                                        #
                                                            #
 describe RSpecExplain do                                   #
   subject { Usage.new }           # like this!          <= #
+
+  def usages
+    subject.methods.grep(/usage_\d/).map { |name| subject.method name }
+  end
 
   context '.explain' do
 
@@ -142,12 +150,39 @@ describe RSpecExplain do                                   #
       expect { test.() }.not_to raise_error
     end
 
+    it 'aligns columns' do
+      specs = []
+      Usage.any_instance.stub(:specify) { |text| specs << text }
+
+      usages.each do |usage|
+        specs = []
+        usage.call
+        
+        first_column = specs.map { |spec| spec.index ' => ' }
+        same = first_column.first
+        first_column.each { |width| width.should == same }
+      end
+    end
+
+    it 'left justifies 1st column' do
+      specs = []
+      Usage.any_instance.stub(:specify) { |text| specs << text }
+
+      data = usages.map do |usage|
+        specs = []
+        usage.call
+        
+        specs
+      end
+
+      data.flatten.select { |x| x[/^\s.* => /] }.should be_empty
+    end    
 
     context 'obvious testing' do
 
       it 'good examples should pass' do
-        subject.methods.grep(/usage_\d/).size.should be >= 4
-        subject.methods.grep(/usage_\d/).each { |method| subject.send method }
+        usages.size.should be >= 4
+        usages.each { |method| method.call }
       end
 
       it 'bad examples should not pass' do
@@ -167,6 +202,7 @@ describe RSpecExplain do                                   #
           10  100
           25  625
           30  900
+          100 10000
         ].map(&:to_i)
 
       end

@@ -9,9 +9,10 @@ module RSpecExplain
 
     examples = prepare examples
 
+    align = examples.map { |input,output| input.to_s.length }.max
     context "##{method}" do
       examples.each do |input,output|
-        specify "#{input} => #{output}" do
+        specify "#{input.to_s.ljust(align)} => #{output}" do
           ##eval(run % [method, input.inspect]).should == output
           subject.send(method, input).send(shoulder) == output   #should == output
         end
