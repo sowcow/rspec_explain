@@ -87,7 +87,7 @@ class Usage
   end
 
   def should_be_red
-   explain :equal, <<-EX
+    explain :equal, <<-EX
       2*2 => `2*2`
     EX
   end
@@ -131,9 +131,16 @@ describe RSpecExplain do                                   #
       subject.usage_1
     end
 
-    # specify 'someday I will test .should==output part' do
-    #   pending
-    # end
+    it 'runs input.should==output' do
+      string = Class.new(String)
+      test = -> do
+        subject.explain :equal, [string.new('one'), string.new('another')]
+      end
+
+      expect { test.() }.to raise_error
+      string.any_instance.stub(:==) { true }
+      expect { test.() }.not_to raise_error
+    end
 
 
     context 'obvious testing' do
